@@ -1,0 +1,24 @@
+---
+- name: Update repositories in all hosts
+  hosts: all
+  become: true
+  roles:
+    - role: update_repositories
+
+- name: Install Apache in web_servers
+  hosts: web_servers
+  become: true
+  roles:
+    - role: install_apache
+
+- name: Install MySQL in db_servers
+  hosts: db_servers
+  become: true
+  roles:
+    - role: install_db
+
+- name: Install Samba in file_servers
+  hosts: file_servers
+  become: true
+  roles:
+    - role: install_samba
