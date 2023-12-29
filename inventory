@@ -1,4 +1,8 @@
-[all]
+[web_servers]
 rocky01 ansible_host=192.168.2.100
+
+[db_servers]
 rocky02 ansible_host=192.168.2.101
+
+[file_servers]
 ubuntu01 ansible_host=192.168.2.11
