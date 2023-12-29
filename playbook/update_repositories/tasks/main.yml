@@ -1,0 +1,4 @@
+---
+- name: Update repositories
+  package:
+    update_cache: true
