@@ -1,2 +1,4 @@
-192.168.2.10
-192.168.2.11
+[all]
+rocky01 ansible_host=192.168.2.100
+rocky02 ansible_host=192.168.2.101
+ubuntu01 ansible_host=192.168.2.11
