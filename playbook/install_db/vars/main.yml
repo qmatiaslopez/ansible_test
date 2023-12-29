@@ -1,0 +1,4 @@
+---
+package_map:
+  Rocky: { pkg: ['mariadb-server'], svc: 'mariadb' }
+  Ubuntu: { pkg: ['mariadb-server'], svc: 'mariadb' }
