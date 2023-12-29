@@ -1,0 +1,27 @@
+---
+- name: Install Samba
+  package:
+    name: "{{ package_map[ansible_distribution].pkg }}"
+    state: latest
+  when: ansible_distribution in package_map.keys()
+
+- name: Gather the package facts
+  ansible.builtin.package_facts:
+    manager: auto
+
+- name: Enable and start Samba service
+  systemd:
+    name: "{{ package_map[ansible_distribution].svc }}"
+    enabled: yes
+    state: started
+  when: 
+    - ansible_distribution in package_map.keys()
+    - package_map[ansible_distribution].svc in ansible_facts.packages
+
+- name: Allow samba in firewalld
+  firewalld:
+    service: samba
+    permanent: true
+    state: enabled
+    immediate: yes
+  when: ansible_distribution in package_map.keys()
