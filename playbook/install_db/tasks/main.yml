@@ -1,0 +1,27 @@
+---
+- name: Install MySQL
+  package:
+    name: "{{ package_map[ansible_distribution].pkg }}"
+    state: latest
+  when: ansible_distribution in package_map.keys()
+
+- name: Gather the package facts
+  ansible.builtin.package_facts:
+    manager: auto
+
+- name: Enable and start MySQL service
+  systemd:
+    name: "{{ package_map[ansible_distribution].svc }}"
+    enabled: yes
+    state: started
+  when: 
+    - ansible_distribution in package_map.keys()
+    - package_map[ansible_distribution].svc in ansible_facts.packages
+
+- name: Allow mysql in firewalld
+  firewalld:
+    service: mysql
+    permanent: true
+    state: enabled
+    immediate: yes
+  when: ansible_distribution in package_map.keys()
