@@ -1,0 +1,4 @@
+---
+package_map:
+  Rocky: { pkg: ['httpd', 'php'], svc: 'httpd' }
+  Ubuntu: { pkg: ['apache2', 'libapache2-mod-php'], svc: 'apache2' }
