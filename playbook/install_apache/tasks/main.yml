@@ -5,15 +5,24 @@
     state: latest
   when: ansible_distribution in package_map.keys()
 
+- name: Copy default_site.html
+  copy:
+    src: default_site.html
+    dest: /var/www/html/index.html
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_distribution in package_map.keys()
+
 - name: Gather the package facts
   ansible.builtin.package_facts:
     manager: auto
 
-- name: Enable and start Apache service
+- name: Enable and restart Apache service
   systemd:
     name: "{{ package_map[ansible_distribution].svc }}"
     enabled: yes
-    state: started
+    state: restarted
   when: 
     - ansible_distribution in package_map.keys()
     - package_map[ansible_distribution].svc in ansible_facts.packages
