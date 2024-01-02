@@ -1,0 +1,6 @@
+---
+- name: Install unzip
+  package:
+    name: "{{ package_map[ansible_distribution].pkg }}"
+    state: present
+  when: ansible_distribution in package_map.keys()
