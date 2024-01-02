@@ -31,3 +31,12 @@
     - role: install_samba
   tags:
     - samba
+
+- name: Install unzip and terraform in workstations
+  hosts: workstations
+  roles: 
+    - install_unzip
+    - install_terraform
+  tags:
+    - unzip
+    - terraform
