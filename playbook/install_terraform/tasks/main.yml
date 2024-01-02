@@ -1,0 +1,10 @@
+---
+- name: Install Terraform
+  unarchive:
+    src: "{{ package_map[ansible_distribution].urlpkg }}"
+    dest: /usr/local/bin
+    remote_src: yes
+    mode: 0755
+    owner: root
+    group: root
+  when: ansible_distribution in package_map.keys()
