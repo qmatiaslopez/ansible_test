@@ -4,21 +4,30 @@
   become: true
   roles:
     - role: update_repositories
+  tags:
+    - always
 
-- name: Install Apache in web_servers
+- name: Install Apache and PHP in web_servers
   hosts: web_servers
   become: true
   roles:
     - role: install_apache
+  tags:
+    - apache
+    - php
 
 - name: Install MySQL in db_servers
   hosts: db_servers
   become: true
   roles:
     - role: install_db
+  tags:
+    - db
 
 - name: Install Samba in file_servers
   hosts: file_servers
   become: true
   roles:
     - role: install_samba
+  tags:
+    - samba
