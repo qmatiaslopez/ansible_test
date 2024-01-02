@@ -6,3 +6,6 @@ rocky02 ansible_host=192.168.2.101
 
 [file_servers]
 ubuntu01 ansible_host=192.168.2.11
+
+[workstations]
+rocky01 ansible_host=192.168.2.100
