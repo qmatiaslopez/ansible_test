@@ -1,0 +1,4 @@
+---
+package_map:
+  Rocky: { urlpkg: 'https://releases.hashicorp.com/terraform/0.12.28/terraform_0.12.28_linux_amd64.zip'}
+  Ubuntu: { urlpkg: 'https://releases.hashicorp.com/terraform/0.12.28/terraform_0.12.28_linux_amd64.zip'}
