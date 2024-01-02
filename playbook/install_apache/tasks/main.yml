@@ -34,3 +34,17 @@
     state: enabled
     immediate: yes
   when: ansible_distribution in package_map.keys()
+
+- name: change e-mail address for admin
+  lineinfile:
+    path: /etc/httpd/conf/httpd.conf
+    regexp: '^ServerAdmin'
+    line: 'ServerAdmin somebody@somewhere.net'
+  when: ansible_distribution == 'Rocky'
+  register: httpd
+
+- name: restart httpd
+  systemd:
+    name: httpd
+    state: restarted
+  when: httpd.changed and ansible_distribution == 'Rocky'
