@@ -1,0 +1,7 @@
+---
+- name: Create user simone in all hosts
+  hosts: all
+  roles:
+    - role: create_user_simone
+  tags:
+    - always
