@@ -1,0 +1,20 @@
+---
+- name: create simone user
+  user:
+    name: simone
+    groups: root
+    state: present
+
+- name: add ssh key to simone user
+  authorized_key:
+    user: simone
+    state: present
+    key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEvZa+BCTZkbROJuQORb45aAIwWWDs5rm8cCsL/bilXK"
+
+- name: add sudoers file for simone user
+  copy:
+    src: sudoer_simone
+    dest: /etc/sudoers.d/simone
+    owner: root
+    group: root
+    mode: 0440
