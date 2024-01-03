@@ -16,7 +16,7 @@
     state: started
   when: 
     - ansible_distribution in package_map.keys()
-    - package_map[ansible_distribution].svc in ansible_facts.packages
+    - package_map[ansible_distribution].pkg in ansible_facts.packages
 
 - name: Allow samba in firewalld
   firewalld:
