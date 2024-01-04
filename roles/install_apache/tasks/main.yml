@@ -41,10 +41,4 @@
     regexp: '^ServerAdmin'
     line: 'ServerAdmin somebody@somewhere.net'
   when: ansible_distribution == 'Rocky'
-  register: httpd
-
-- name: restart httpd
-  systemd:
-    name: httpd
-    state: restarted
-  when: httpd.changed and ansible_distribution == 'Rocky'
+  notify: restart_apache
