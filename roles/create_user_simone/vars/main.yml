@@ -1,0 +1,15 @@
+---
+user_details:
+  name: simone
+  groups: root
+  state: present
+
+ssh_key:
+  key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEvZa+BCTZkbROJuQORb45aAIwWWDs5rm8cCsL/bilXK"
+
+sudoers_config:
+  src_file: sudoer_simone
+  dest_path: /etc/sudoers.d/simone
+  owner: root
+  group: root
+  mode: 440

@@ -7,11 +7,11 @@
 
 - name: Copy default_site.html
   copy:
-    src: default_site.html
-    dest: /var/www/html/index.html
-    owner: root
-    group: root
-    mode: 0644
+    src: "{{ html_file.src }}"
+    dest: "{{ html_file.dest }}"
+    owner: "{{ html_file.owner }}"
+    group: "{{ html_file.group }}"
+    mode: "{{ html_file.mode }}"
   when: ansible_distribution in package_map.keys()
 
 - name: Gather the package facts
@@ -21,24 +21,23 @@
 - name: Enable and restart Apache service
   systemd:
     name: "{{ package_map[ansible_distribution].svc }}"
-    enabled: yes
+    enabled: True
     state: restarted
-  when: 
-    - ansible_distribution in package_map.keys()
-    - package_map[ansible_distribution].svc in ansible_facts.packages
+  when: ansible_distribution in package_map.keys() and 
+        package_map[ansible_distribution].svc in ansible_facts.packages
 
 - name: Allow http in firewalld
   firewalld:
-    service: http
-    permanent: true
-    state: enabled
-    immediate: yes
+    service: "{{ firewalld_config.service }}"
+    permanent: "{{ firewalld_config.permanent }}"
+    state: "{{ firewalld_config.state }}"
+    immediate: "{{ firewalld_config.immediate }}"
   when: ansible_distribution in package_map.keys()
 
 - name: change e-mail address for admin
   lineinfile:
-    path: /etc/httpd/conf/httpd.conf
-    regexp: '^ServerAdmin'
-    line: 'ServerAdmin somebody@somewhere.net'
+    path: "{{ apache_config.path }}"
+    regexp: "{{ apache_config.regexp }}"
+    line: "{{ apache_config.line }}"
   when: ansible_distribution == 'Rocky'
   notify: restart_apache

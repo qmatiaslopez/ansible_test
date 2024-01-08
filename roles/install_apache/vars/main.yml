@@ -1,4 +1,26 @@
 ---
-package_map:
-  Rocky: { pkg: ['httpd', 'php'], svc: 'httpd' }
-  Ubuntu: { pkg: ['apache2', 'libapache2-mod-php'], svc: 'apache2' }
+package_map: 
+  Rocky: 
+    pkg: ['httpd', 'php']
+    svc: 'httpd'
+  Ubuntu: 
+    pkg: ['apache2', 'libapache2-mod-php']
+    svc: 'apache2'
+
+html_file:
+  src: default_site.html
+  dest: /var/www/html/index.html
+  owner: root
+  group: root
+  mode: 440
+
+firewalld_config:
+  service: http
+  permanent: True
+  state: enabled
+  immediate: True
+
+apache_config:
+  path: /etc/httpd/conf/httpd.conf
+  regexp: '^ServerAdmin'
+  line: 'ServerAdmin somebody@somewhere.net'

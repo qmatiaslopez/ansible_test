@@ -1,20 +1,20 @@
 ---
-- name: create simone user
+- name: create {{ user_details.name }} user
   user:
-    name: simone
-    groups: root
-    state: present
+    name: "{{ user_details.name }}"
+    groups: "{{ user_details.groups }}"
+    state: "{{ user_details.state }}"
 
-- name: add ssh key to simone user
+- name: add ssh key to {{ user_details.name }} user
   authorized_key:
-    user: simone
+    user: "{{ user_details.name }}"
     state: present
-    key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEvZa+BCTZkbROJuQORb45aAIwWWDs5rm8cCsL/bilXK"
+    key: "{{ ssh_key.key }}"
 
-- name: add sudoers file for simone user
+- name: add sudoers file for {{ user_details.name }} user
   copy:
-    src: sudoer_simone
-    dest: /etc/sudoers.d/simone
-    owner: root
-    group: root
-    mode: 0440
+    src: "{{ sudoers_config.src_file }}"
+    dest: "{{ sudoers_config.dest_path }}"
+    owner: "{{ sudoers_config.owner }}"
+    group: "{{ sudoers_config.group }}"
+    mode: "{{ sudoers_config.mode }}"
